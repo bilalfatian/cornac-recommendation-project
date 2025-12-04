@@ -34,7 +34,7 @@ This project implements a recommendation system using the Cornac library for the
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/cornac-recommendation-project.git
+git clone https://github.com/bilalfatian/cornac-recommendation-project.git
 cd cornac-recommendation-project
 ```
 
@@ -115,7 +115,7 @@ Results are saved in `results/metrics/` as JSON files.
 
 ## Author
 
-Your Name - [your.email@example.com](mailto:your.email@example.com)
+Your Name - Bilal Fatian
 
 ## License
 
