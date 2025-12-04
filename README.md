@@ -115,7 +115,7 @@ Results are saved in `results/metrics/` as JSON files.
 
 ## Author
 
-Your Name - Bilal Fatian
+Bilal Fatian (the GOAT)
 
 ## License
 
