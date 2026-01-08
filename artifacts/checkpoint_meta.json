@@ -1,0 +1,7 @@
+{
+  "text_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "embedding_dim": 64,
+  "n_items": 1651,
+  "seed": 42,
+  "note": "Commit artifacts/ to repo to satisfy '(pre)-trained checkpoint' requirement."
+}

@@ -83,39 +83,77 @@ We use the **MovieLens 100K** dataset, which contains:
 - Ratings from 1 to 5
 
 The data is automatically downloaded by Cornac.
-
 ## Evaluation Metrics
 
-- **Recall@K**: Proportion of relevant items retrieved in top-K
-- **NDCG@K**: Normalized Discounted Cumulative Gain at K
-- **Precision@K**: Precision of top-K recommendations
+The models are evaluated using standard top-K ranking metrics:
 
-Default K values: 5, 10, 20
+- **Recall@K**: Proportion of relevant items retrieved among the top-K recommendations.
+- **NDCG@K**: Normalized Discounted Cumulative Gain, which accounts for the ranking position of relevant items.
+- **Precision@K**: Fraction of relevant items in the top-K recommendations.
+
+Unless stated otherwise, results are reported for **K = 5, 10, and 20**.  
+In accordance with the project guidelines, **Recall@10** and **NDCG@10** are used as the primary comparison metrics.
+
+---
 
 ## Model Details
 
 ### Baseline Models
-1. **MostPop**: Recommends most popular items
-2. **UserKNN**: User-based collaborative filtering
-3. **ItemKNN**: Item-based collaborative filtering
 
-### Main Model
-(TODO: Describe your chosen model - GCN, LightGCN, VAECF+Social, BERT, etc.)
+The following baseline models are implemented for comparison:
 
-## Results
+1. **MostPop**  
+   Recommends items based on global interaction frequency. This non-personalized baseline provides a strong reference point for popularity-driven recommendations.
 
-Results are saved in `results/metrics/` as JSON files.
+2. **UserKNN**  
+   A user-based collaborative filtering model that recommends items preferred by similar users.
 
-| Model | Recall@10 | NDCG@10 | Training Time |
-|-------|-----------|---------|---------------|
-| MostPop | TBD | TBD | TBD |
-| UserKNN | TBD | TBD | TBD |
-| ItemKNN | TBD | TBD | TBD |
-| MainModel | TBD | TBD | TBD |
+3. **ItemKNN**  
+   An item-based collaborative filtering model that recommends items similar to those previously interacted with by the user.
 
-## Author
+4. **MF**  
+   A standard matrix factorization model trained on implicit feedback.
 
-Bilal Fatian (the GOAT)
+5. **BPR**  
+   Bayesian Personalized Ranking, a pairwise ranking-based matrix factorization approach optimized for top-K recommendation.
+
+---
+
+## Proposed Model
+
+### DualHybridVAE
+
+**DualHybridVAE** is a hybrid recommendation model that combines collaborative filtering with semantic item representations derived from a pretrained language model.
+
+The model is based on a variational autoencoder (VAE) operating on user interaction vectors. The decoder is composed of two components:
+
+- A **collaborative decoder**, which learns item representations directly from interaction data.
+- A **semantic decoder**, which scores items using fixed text embeddings extracted from movie titles and genres via a pretrained language model.
+
+The final recommendation score is computed as a weighted combination of both decoders, allowing the model to leverage semantic similarity while preserving strong collaborative signals.
+
+---
+
+## Artifacts
+
+Training and evaluation generate several artifacts that are saved to disk for reproducibility and further analysis:
+
+- `artifacts/item_embeddings.npy`  
+  Precomputed language model embeddings for each item, extracted from movie titles and genre information.
+
+- `artifacts/item_id_map.json`  
+  Mapping between raw item identifiers and internal item indices used by the model.
+
+- `artifacts/DualHybridVAE.pt`  
+  Model checkpoint containing the trained parameters of the DualHybridVAE.
+
+- `results/metric
+
+
+
+## Authors
+
+Bilal Fatian, Mehdi Ben Barka, Vanessa Meyanga , Adam Chekhab 
 
 ## License
 
