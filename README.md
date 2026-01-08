@@ -133,6 +133,30 @@ The model is based on a variational autoencoder (VAE) operating on user interact
 The final recommendation score is computed as a weighted combination of both decoders, allowing the model to leverage semantic similarity while preserving strong collaborative signals.
 
 ---
+## Results
+
+Table below summarizes the performance of all evaluated models on the MovieLens 100K test set.  
+Results are reported using the same train–test split and evaluation protocol for all models.
+
+### Performance Comparison
+
+| Model         | Recall@10 | NDCG@10 | Precision@10 | Train Time (s) |
+|---------------|-----------|---------|--------------|----------------|
+| MostPop       | 0.1129    | 0.2130  | 0.1882       | 0.0039         |
+| UserKNN       | 0.0004    | 0.0005  | 0.0006       | 0.0303         |
+| ItemKNN       | 0.0117    | 0.0347  | 0.0359       | 0.0526         |
+| MF            | 0.0354    | 0.0770  | 0.0799       | 0.8850         |
+| BPR           | 0.1120    | 0.2151  | 0.1900       | 0.2765         |
+| **DualHybridVAE** | **0.1682** | **0.3073** | **0.2617** | 8.2957         |
+
+## Discussion
+
+DualHybridVAE outperforms all baseline models across the primary evaluation metrics Recall@10 and NDCG@10.  
+Compared to the strongest collaborative baseline (BPR), the proposed model achieves substantial improvements in both recall and ranking quality.
+
+Despite relying on relatively limited textual information (movie titles and genres), the integration of language model embeddings provides a strong semantic signal that complements collaborative filtering. The dual-decoder architecture allows the model to benefit from semantic similarity without degrading collaborative performance.
+
+These results highlight the effectiveness of combining collaborative and language-based representations in a unified framework.
 
 ## Artifacts
 
